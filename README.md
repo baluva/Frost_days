@@ -23,12 +23,14 @@ frost_days/
 │   ├── stations.py      # Haversine + sélection N stations proches
 │   └── frost.py         # cœur du calcul (filtres NaN 35 %, agrégations)
 ├── scripts/
-│   └── download_data.py # télécharge le référentiel + 1 département
+│   ├── download_data.py # télécharge le référentiel + 1 département
+│   └── clean_data.py    # nettoie le brut → data/cleaned/<dept>_clean.csv
 ├── notebooks/
 │   ├── 01_pipeline.ipynb     # pipeline de traitement (extrait du .py)
 │   └── 02_exploration.ipynb  # exploration + justification + hypothèses
 ├── app.py               # interface Streamlit
-└── cli.py               # entrée ligne de commande
+├── cli.py               # entrée ligne de commande
+└── validate.py          # validation contre le jeu de référence (validation/)
 ```
 
 ## Installation
@@ -51,7 +53,26 @@ python scripts/download_data.py --dept 21 35 69       # plusieurs
 
 Source : <https://www.data.gouv.fr/datasets/donnees-climatologiques-de-base-quotidiennes>
 Schéma des champs : `Q_descriptif_champs_RR-T-Vent.csv`.
-Variables clés utilisées : `NUM_POSTE`, `NOM_USUEL`, `LAT`, `LON`, `AAAAMMJJ`, `TN`.
+Variables clés utilisées : `NUM_POSTE`, `NOM_USUEL`, `LAT`, `LON`, `ALTI`, `AAAAMMJJ`, `TN`.
+
+### Nettoyage des données
+
+Les fichiers bruts (60 colonnes) sont traités en fichiers propres (7 colonnes utiles +
+`frost_day`, lignes sans température supprimées) → `data/cleaned/<dept>_clean.csv` :
+
+```bash
+python scripts/clean_data.py            # tous les départements présents en local
+python scripts/clean_data.py --dept 21  # un seul
+```
+
+Schéma de sortie : `station_id, station_name, latitude, longitude, alti, date, tmin,
+frost_day, year, month, day` (cf. `data/cleaned/README.md`).
+
+### Validation
+
+```bash
+python validate.py     # compare le pipeline au jeu de référence (dossier validation/)
+```
 
 ## Usage CLI
 
