@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frost Days — Script oral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Spectral:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14222B; --muted:#5A6B74; --paper:#EEF3F6; --card:#FFFFFF;
+    --hair:#D3DEE4; --louey:#15598F; --alexis:#B4480F; --zero:#243038;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Spectral', Georgia, 'Times New Roman', serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px; margin:0 auto; padding:40px 28px 70px;}
+
+  /* En-tête */
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--muted);}
+  h1.title{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:54px;
+    letter-spacing:-.02em; margin:.1em 0 .15em;}
+  .by{font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted);}
+  .datum{position:relative; height:1px; background:var(--hair); margin:18px 0 6px;}
+  .datum::before{content:"0 °C"; position:absolute; right:0; top:-11px; background:var(--paper);
+    padding-left:8px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; color:var(--muted);}
+  .datum::after{content:""; position:absolute; left:0; top:-2px; width:50px; height:5px; background:var(--louey);}
+  .lede{color:var(--muted); font-size:16px; margin:10px 0 0;}
+
+  /* Sections */
+  .sec{background:var(--card); border:1px solid var(--hair); border-radius:10px;
+    padding:22px 26px; margin:20px 0; box-shadow:0 1px 0 rgba(20,34,43,.03);}
+  .sechead{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:6px;}
+  .num{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:#fff;
+    background:var(--zero); width:30px; height:30px; border-radius:7px; display:grid; place-items:center; flex:0 0 auto;}
+  h2{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:23px; margin:0; flex:1 1 auto;}
+  .time{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted);
+    border:1px solid var(--hair); border-radius:20px; padding:3px 10px; white-space:nowrap;}
+  .star{color:var(--alexis); font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:.12em; text-transform:uppercase;}
+
+  /* Indication de mise en scène (à NE PAS lire) */
+  .cue{font-style:italic; color:var(--muted); font-size:15px; margin:10px 0 4px;
+    padding:8px 14px; border-left:3px dashed var(--hair); background:#F7FAFB;}
+  .cue b{font-style:normal;}
+
+  /* Réplique parlée */
+  .turn{margin:14px 0 4px; padding-left:16px; border-left:4px solid var(--louey);}
+  .turn.alexis{border-left-color:var(--alexis);}
+  .who{font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:12px;
+    letter-spacing:.14em; text-transform:uppercase; color:#fff; padding:3px 10px; border-radius:5px;
+    display:inline-block; margin-bottom:8px;}
+  .who.l{background:var(--louey);} .who.a{background:var(--alexis);}
+  .speech{font-size:20px; line-height:1.72;}
+  .speech .hi{background:linear-gradient(transparent 62%, #Bfe0f2 62%); font-weight:500; padding:0 1px;}
+  .speech .num-hi{font-weight:600; color:var(--louey);}
+
+  /* Aide-mémoire */
+  .memo{background:#0F2330; color:#E8EEF1; border-radius:10px; padding:22px 26px; margin-top:26px;}
+  .memo h3{font-family:'Space Grotesk',sans-serif; margin:0 0 12px; font-size:18px; color:#fff;}
+  .memo ul{margin:0; padding-left:0; list-style:none; font-family:'IBM Plex Mono',monospace; font-size:14px; line-height:1.95;}
+  .memo b{color:#7EC8E3;}
+
+  @media print{ body{background:#fff} .sec{box-shadow:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Script oral · soutenance</div>
+  <h1 class="title">FROST&nbsp;DAYS</h1>
+  <div class="by">Alexis &amp; Louey · ≈ 11–12 min + questions</div>
+  <div class="datum"></div>
+  <p class="lede">À lire au naturel, posément. Les passages <i>en italique encadré</i> sont des indications
+  (quand cliquer) — on ne les prononce pas. <span style="color:var(--louey)">●</span> Louey ·
+  <span style="color:var(--alexis)">●</span> Alexis.</p>
+
+  <!-- 1 -->
+  <div class="sec">
+    <div class="sechead"><span class="num">1</span><h2>Accroche &amp; problématique</h2><span class="time">≈ 1 min</span></div>
+    <div class="turn"><span class="who l">Louey</span>
+      <div class="speech">Bonjour à tous. En France, on entend souvent dire que les hivers sont de moins en
+      moins rudes. Mais « de moins en moins rude », concrètement, ça veut dire quoi ? Est-ce que c'est
+      juste une impression, ou est-ce qu'on peut le <span class="hi">mesurer</span> ? Pour répondre, on a
+      choisi une mesure très simple et très parlante : le <b>jour de gel</b>. Notre question, la voici :
+      <span class="hi">combien de jours de gel une commune française a-t-elle connus sur une période donnée ?</span>
+      Et on s'est donné une définition stricte, pour qu'il n'y ait aucune ambiguïté : un jour de gel,
+      c'est un jour où la température minimale sous abri — ce que les météorologues appellent la variable
+      <b>TN</b> — est descendue à <b>zéro degré ou en dessous</b>. Toute notre analyse tient sur cette
+      ligne des zéro degré.</div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="sec">
+    <div class="sechead"><span class="num">2</span><h2>Les données</h2><span class="time">≈ 1 min 30</span></div>
+    <div class="turn alexis"><span class="who a">Alexis</span>
+      <div class="speech">Pour mesurer ça sérieusement, il nous fallait des données fiables. On est partis
+      d'une <b>seule source, officielle</b> : data.gouv.fr, les données climatologiques quotidiennes de
+      Météo-France. Concrètement, on utilise deux fichiers : un référentiel des communes, qui nous donne
+      la position GPS de chaque ville, et, pour chaque département, un fichier de relevés quotidiens qui
+      remonte jusqu'aux années 1950. Ce fichier est énorme : <span class="hi">soixante colonnes</span>.
+      Mais on n'en garde que <b>sept</b>. Pourquoi ? Parce qu'on a vérifié chaque colonne : la moitié du
+      fichier, ce sont des codes qualité, pas des mesures ; huit colonnes sont complètement vides ; et
+      tout ce qui est vent ou pluie ne nous sert pas pour le gel. Au final, l'essentiel tient dans une
+      variable : <b>TN</b>, la température minimale. Et surtout pas la moyenne ni le maximum — parce que
+      le gel, c'est le <b>minimum</b> de la nuit. Une nuit à moins trois suivie d'un après-midi à douze
+      degrés : la moyenne est positive, et pourtant il a gelé. Seul TN le voit.</div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="sec">
+    <div class="sechead"><span class="num">3</span><h2>Le pipeline &amp; nos choix techniques</h2><span class="time">≈ 2 min</span></div>
+    <div class="turn"><span class="who l">Louey</span>
+      <div class="speech">Une fois les données en main, comment on passe d'une commune à un résultat ? En
+      <b>cinq étapes</b> : on récupère la position de la commune, on charge le fichier du bon département
+      — et on le lit <b>par paquets de cinq cent mille lignes</b>, pour ne jamais saturer la mémoire —,
+      on cherche les stations météo les plus proches, et on compte les jours où TN passe sous zéro. Sur
+      ce chemin, il y a deux décisions qu'on revendique.</div>
+    </div>
+    <div class="turn alexis"><span class="who a">Alexis</span>
+      <div class="speech"><b>La première</b>, c'est la façon de mesurer la distance entre la commune et les
+      stations. On utilise la formule de <b>Haversine</b>, la vraie distance à vol d'oiseau sur une sphère.
+      Pourquoi pas une simple distance plate ? Parce qu'à la latitude de la France, un degré de longitude
+      vaut environ soixante-dix kilomètres, mais un degré de latitude en vaut cent onze. Une distance
+      naïve déformerait tout l'axe est-ouest.</div>
+    </div>
+    <div class="turn"><span class="who l">Louey</span>
+      <div class="speech"><b>La deuxième</b>, c'est qu'on ne prend pas bêtement la station la plus proche.
+      Beaucoup de stations sont en réalité des pluviomètres : elles mesurent la pluie, mais pas la
+      température. Sur la Côte-d'Or, on a compté : <span class="hi">trente-huit stations sur cinquante-huit</span>
+      n'ont aucune donnée de température. Donc on prend les cinq plus proches, et on garde la première qui
+      a moins de trente-cinq pour cent de trous. Pour Dijon, ça élimine la station à deux kilomètres, trop
+      incomplète, et on retient Dijon-Toison à quatre kilomètres. Sans cette règle, on calculerait sur une
+      station fantôme.</div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="sec">
+    <div class="sechead"><span class="num">4</span><h2>Démonstration — la commune</h2><span class="time">≈ 1 min 30</span></div>
+    <div class="cue">▸ <b>Action :</b> onglet <b>La commune</b>. Lancer le calcul sur <b>Dijon · 2014 → 2023</b>.</div>
+    <div class="turn alexis"><span class="who a">Alexis</span>
+      <div class="speech">Passons à l'application. Je lance le calcul pour Dijon, sur dix ans, de 2014 à
+      2023. Voilà la réponse directe à notre question : <span class="hi">quatre cent trente-neuf jours de
+      gel</span> sur la période, soit environ <b>quarante-neuf par an</b>. En haut, on affiche toujours la
+      station retenue, sa distance et le taux de couverture des données : on joue la transparence sur la
+      qualité. Si je regarde la répartition, le gel est concentré de novembre à mars. Et il y a des
+      journées remarquables : le <b>24 janvier</b> a gelé sept années sur huit. Pour un jardinier, cette
+      courbe, c'est littéralement un calendrier du risque.</div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="sec">
+    <div class="sechead"><span class="num">5</span><h2>Démonstration — la température</h2><span class="time">≈ 1 min 30</span></div>
+    <div class="cue">▸ <b>Action :</b> onglet <b>Température &amp; gel</b>.</div>
+    <div class="turn"><span class="who l">Louey</span>
+      <div class="speech">Maintenant, la première grande question : est-ce que ça se réchauffe vraiment ?
+      Sur cet onglet, on suit la température minimale de l'hiver, année après année, toujours avec la ligne
+      des zéro degré comme repère. On ajuste une tendance, et on voit la pente. Et quand on croise
+      directement la température et le nombre de jours de gel, le lien est net : <span class="hi">plus
+      l'hiver est doux, moins il gèle</span>. Une précision d'honnêteté, par contre : sur dix ans
+      seulement, ce signal reste fragile — la météo varie beaucoup d'une année à l'autre. Pour parler
+      vraiment de climat, il faut au moins <b>trente ans</b> : c'est la norme de l'Organisation
+      météorologique mondiale.</div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="sec">
+    <div class="sechead"><span class="num">6</span><h2>Démonstration — l'altitude</h2><span class="time">≈ 1 min</span></div>
+    <div class="cue">▸ <b>Action :</b> onglet <b>Altitude &amp; gel</b>.</div>
+    <div class="turn alexis"><span class="who a">Alexis</span>
+      <div class="speech">La deuxième grande question, c'est l'espace : est-ce que l'altitude change la
+      donne ? Sur ce graphique, chaque point est une station du département : en horizontal son altitude,
+      en vertical son nombre de jours de gel par an. La station de Dijon est en orange. Et la tendance est
+      claire : <span class="hi">plus on monte, plus il gèle</span>. Ici, en plaine bourguignonne, l'effet
+      est modéré ; sur un département de montagne comme l'Isère, il serait beaucoup plus marqué.</div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="sec" style="border-color:var(--alexis);">
+    <div class="sechead"><span class="num">7</span><h2>La synthèse — le temps contre l'espace</h2>
+      <span class="time">≈ 1 min 30</span><span class="star">★ moment fort</span></div>
+    <div class="cue">▸ <b>Action :</b> onglet <b>Synthèse</b>, puis changer la plage en <b>1970 → 2024</b> et re-calculer.</div>
+    <div class="turn"><span class="who l">Louey</span>
+      <div class="speech">Et voilà notre apport principal. On a deux forces qui agissent sur le gel : le
+      temps qui passe, et l'altitude. L'idée, c'est de les mettre dans la <b>même unité</b> — des jours de
+      gel par an — pour enfin les comparer. Je passe sur la période longue, 1970 à 2024. Résultat : le
+      réchauffement fait <span class="num-hi">perdre environ un jour et demi de gel par décennie</span>,
+      et l'altitude en <span class="num-hi">ajoute environ trois par cent mètres</span>. Ce qui donne une
+      phrase très parlante : <span class="hi">monter de cent mètres ajoute autant de jours de gel que le
+      réchauffement en a fait disparaître en à peu près deux décennies.</span> Autrement dit, la
+      géographie et le climat tirent sur le gel en sens contraire — et on peut enfin les poser sur la même
+      balance.</div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="sec">
+    <div class="sechead"><span class="num">8</span><h2>Limites &amp; rigueur</h2><span class="time">≈ 45 s</span></div>
+    <div class="turn alexis"><span class="who a">Alexis</span>
+      <div class="speech">On assume nos limites. Dix ans, ce n'est pas suffisant pour conclure sur le
+      climat. Certaines années sont incomplètes, donc on normalise les comptages. Et notre définition,
+      TN sous zéro, ne capte pas le gel au ras du sol — la gelée blanche du matin — qui demanderait une
+      autre variable, TNSOL, malheureusement presque toujours manquante. Ce sont nos pistes
+      d'amélioration.</div>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="sec">
+    <div class="sechead"><span class="num">9</span><h2>Conclusion &amp; ouverture</h2><span class="time">≈ 30 s</span></div>
+    <div class="turn"><span class="who l">Louey</span>
+      <div class="speech">Pour conclure : à partir d'une <b>seule source ouverte</b>, on répond précisément
+      à la question « combien de jours de gel », et surtout on explique <b>quand</b> ça gèle,
+      <b>pourquoi</b> ça bouge, et <b>où</b> c'est le pire. Nos prochaines étapes : calculer la date du
+      dernier gel de printemps, et comparer un département au bord de la mer avec un département
+      continental. Merci de votre attention — on est prêts pour vos questions.</div>
+    </div>
+  </div>
+
+  <!-- Aide-mémoire -->
+  <div class="memo">
+    <h3>Aide-mémoire — chiffres à ne pas rater</h3>
+    <ul>
+      <li>Dijon 2014–2023 → <b>439</b> jours de gel · <b>≈ 49 / an</b> · station Dijon-Toison à 4 km</li>
+      <li>Qualité : <b>38 stations / 58</b> sans thermomètre · seuil <b>35 %</b> de NaN</li>
+      <li>Données : <b>60 colonnes</b> → on garde <b>7</b> · variable clé <b>TN ≤ 0 °C</b></li>
+      <li>Synthèse (1970–2024) : temps <b>−1,7 j/décennie</b> · altitude <b>+3 j/100 m</b></li>
+      <li>Phrase choc : <b>+100 m ≈ 2 décennies</b> de réchauffement annulées</li>
+      <li>Climat sérieux = <b>30 ans</b> mini (norme OMM)</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
