@@ -10,6 +10,7 @@ __pycache__/
 *.egg-info/
 .Python
 .venv/
+.venv*/
 venv/
 env/
 .pytest_cache/
@@ -30,3 +31,17 @@ Thumbs.db
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Secrets / environnement
+.env
+.env.*
+*.local
+credentials.json
+
+# Logs / fichiers temporaires
+*.log
+*.part
+*.bak
+*.bak.*
+*.tmp
+~$*

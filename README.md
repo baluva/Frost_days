@@ -7,10 +7,18 @@ Calcul du nombre de jours de gel pour une commune française sur une plage de da
 
 Un **jour de gel** = un jour où la température minimale (`TN`) sous abri a été ≤ 0 °C.
 
-**Problématique & questions d'analyse :** voir [`QUESTIONS.md`](QUESTIONS.md).
-**Script de présentation orale :** voir [`PRESENTATION.md`](PRESENTATION.md).
-**Validation contre le jeu de référence :** voir [`VALIDATION.md`](VALIDATION.md).
-**Audit des 60 colonnes (qualité des données) :** notebook `notebooks/02_exploration.ipynb`, § 1 bis.
+## Documentation
+
+Toute la doc est dans [`docs/`](docs/) :
+
+| Sujet | Fichier |
+|---|---|
+| Problématique & questions d'analyse | [`docs/QUESTIONS.md`](docs/QUESTIONS.md) |
+| Comment marche le code | [`docs/CODE.md`](docs/CODE.md) |
+| Explication détaillée du projet | [`docs/EXPLICATION.md`](docs/EXPLICATION.md) |
+| Validation contre le jeu de référence | [`docs/VALIDATION.md`](docs/VALIDATION.md) |
+| Présentation orale & guide de démo | [`docs/presentation/`](docs/presentation/) |
+| Audit des 60 colonnes (qualité des données) | notebook `notebooks/02_exploration.ipynb`, § 1 bis |
 
 ## Architecture
 
@@ -28,6 +36,8 @@ frost_days/
 ├── notebooks/
 │   ├── 01_pipeline.ipynb     # pipeline de traitement (extrait du .py)
 │   └── 02_exploration.ipynb  # exploration + justification + hypothèses
+├── docs/                # documentation (+ presentation/ : oral, démo, HTML)
+├── assets/              # hero_frost.jpg (bandeau), pipeline.png/svg
 ├── app.py               # interface Streamlit
 ├── cli.py               # entrée ligne de commande
 └── validate.py          # validation contre le jeu de référence (validation/)

@@ -5,6 +5,9 @@ Interface Streamlit. Réalisé par Alexis & Louey.
 """
 from __future__ import annotations
 
+import base64
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
@@ -37,6 +40,8 @@ COLD_SF  = "#A9C8DC"   # froid pâle (aplats)
 WARM     = "#C2410C"   # chaud / réchauffement / station ciblée
 WARM_SF  = "#E7B48E"
 ZERO     = "#243038"   # ligne 0 °C
+BLEU     = "#000091"   # Bleu France — charte graphique de l'État
+ROUGE    = "#E1000F"   # Rouge Marianne
 
 # Échelle divergente froid → neutre → chaud (langage des cartes climatiques).
 TEMP_SCALE = [[0.0, COLD_DK], [0.35, COLD], [0.5, "#E7EDF0"], [0.65, WARM], [1.0, "#8A2C08"]]
@@ -146,6 +151,38 @@ div[data-testid="stAlert"] {{
 
 /* On masque le chrome décoratif de Streamlit */
 [data-testid="stStatusWidget"] {{ display: none; }}
+
+/* Le hero remonte vers le haut de page */
+.block-container {{ padding-top: 2.6rem; }}
+
+/* ─── Hero : bandeau givre (vraie macro, duotone froid) + filet tricolore ─── */
+.fd-hero {{
+  position: relative; border-radius: 8px; overflow: hidden;
+  border: 1px solid #21425c; margin: 0.1rem 0 0.5rem 0;
+  background-size: cover; background-position: center 62%;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.55);
+}}
+.fd-hero-inner {{ position: relative; padding: 2.5rem 2.6rem 2.2rem 2.9rem; }}
+.fd-flag {{
+  position: absolute; left: 0; top: 0; bottom: 0; width: 9px;
+  background: linear-gradient(to bottom,
+     {BLEU} 0 33.33%, #ffffff 33.33% 66.66%, {ROUGE} 66.66% 100%);
+}}
+.fd-eyebrow-light {{ color: #A9C4D9; }}
+.fd-title-hero {{ color: #EEF5FA; font-size: 3.25rem; margin: 0.5rem 0 0.45rem 0; }}
+.fd-sub-hero {{ color: #C6D7E5; max-width: 58ch; }}
+.fd-by-hero {{ color: #8FB0C8; margin-top: 0.7rem; }}
+@media (max-width: 640px) {{
+  .fd-hero-inner {{ padding: 1.6rem 1.4rem 1.5rem 1.7rem; }}
+  .fd-title-hero {{ font-size: 2.2rem; }}
+}}
+
+/* Filet tricolore réutilisable (sidebar, pied de page) */
+.fd-tricolore {{
+  height: 4px; width: 64px; border-radius: 2px;
+  background: linear-gradient(to right,
+     {BLEU} 0 33.33%, #ffffff 33.33% 66.66%, {ROUGE} 66.66% 100%);
+}}
 </style>
 """
 st.markdown(CSS, unsafe_allow_html=True)
@@ -155,16 +192,38 @@ def datum() -> None:
     st.markdown('<div class="fd-datum"></div>', unsafe_allow_html=True)
 
 
+def _load_b64(rel: str) -> str:
+    """Charge un asset binaire en base64 (vide si absent)."""
+    try:
+        return base64.b64encode((Path(__file__).parent / rel).read_bytes()).decode()
+    except Exception:
+        return ""
+
+
+HERO_B64 = _load_b64("assets/hero_frost.jpg")
+
+
 # ──────────────────────────────────────────────────────────────────────────────
-# Masthead
+# Masthead — bandeau givre + signature institutionnelle française
 # ──────────────────────────────────────────────────────────────────────────────
+_hero_bg = (
+    "background-image: linear-gradient(100deg, rgba(8,18,30,0.95) 0%, "
+    "rgba(8,18,30,0.64) 44%, rgba(11,32,50,0.30) 100%), "
+    f"url('data:image/jpeg;base64,{HERO_B64}');"
+    if HERO_B64 else "background: #0E2438;"
+)
 st.markdown(
-    """
-    <div class="fd-eyebrow">Bulletin climatique · data.gouv.fr / Météo-France · 1950–2024</div>
-    <div class="fd-title">FROST&nbsp;DAYS</div>
-    <div class="fd-sub">Combien de jours de gel une commune française a-t-elle connus sur une période donnée&nbsp;?
-    Un <b>jour de gel</b> = un jour où la température minimale sous abri (TN) est descendue à <b>0&nbsp;°C ou moins</b>.</div>
-    <div class="fd-by" style="margin-top:0.5rem;">Alexis &amp; Louey</div>
+    f"""
+    <div class="fd-hero" style="{_hero_bg}">
+      <div class="fd-flag"></div>
+      <div class="fd-hero-inner">
+        <div class="fd-eyebrow fd-eyebrow-light">République française · Météo-France · Relevé de gel · 1950–2024</div>
+        <div class="fd-title fd-title-hero">FROST&nbsp;DAYS</div>
+        <div class="fd-sub fd-sub-hero">Combien de jours de gel une commune française a-t-elle connus sur une période donnée&nbsp;?
+        Un <b>jour de gel</b> = un jour où la température minimale sous abri (TN) est descendue à <b>0&nbsp;°C ou moins</b>.</div>
+        <div class="fd-by fd-by-hero">Alexis &amp; Louey</div>
+      </div>
+    </div>
     """,
     unsafe_allow_html=True,
 )
@@ -215,7 +274,11 @@ def run(commune: str, dept: str, lat: float, lon: float, start: str, end: str):
 # Sidebar — paramètres
 # ──────────────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown('<span class="fd-eyebrow">Paramètres</span>', unsafe_allow_html=True)
+    st.markdown(
+        '<span class="fd-eyebrow">Paramètres</span>'
+        '<div class="fd-tricolore" style="margin:0.45rem 0 1rem 0;"></div>',
+        unsafe_allow_html=True,
+    )
     communes = get_communes()
     sorted_dept_codes = sorted(DEPARTMENTS.keys(), key=lambda c: DEPARTMENTS[c])
     try:
@@ -563,7 +626,14 @@ with tab4:
 # ── Pied de page ──────────────────────────────────────────────────────────────
 datum()
 st.markdown(
-    f"<div class='fd-by' style='text-align:center;padding:0.6rem 0 1rem 0;'>"
-    f"Frost Days · Alexis &amp; Louey · données data.gouv.fr — Météo-France</div>",
+    f"""
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;padding:0.6rem 0 1.4rem 0;">
+      <div class="fd-tricolore"></div>
+      <div class="fd-by">Frost Days · Alexis &amp; Louey · données data.gouv.fr — Météo-France</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.66rem;color:{MUTED};letter-spacing:0.03em;">
+        Bandeau&nbsp;: gelée blanche — W.&nbsp;Carter, Wikimedia&nbsp;Commons, CC&nbsp;BY-SA&nbsp;4.0
+      </div>
+    </div>
+    """,
     unsafe_allow_html=True,
 )
