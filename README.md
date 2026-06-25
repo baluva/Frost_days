@@ -9,6 +9,8 @@ Un **jour de gel** = un jour où la température minimale (`TN`) sous abri a ét
 
 **Problématique & questions d'analyse :** voir [`QUESTIONS.md`](QUESTIONS.md).
 **Script de présentation orale :** voir [`PRESENTATION.md`](PRESENTATION.md).
+**Validation contre le jeu de référence :** voir [`VALIDATION.md`](VALIDATION.md).
+**Audit des 60 colonnes (qualité des données) :** notebook `notebooks/02_exploration.ipynb`, § 1 bis.
 
 ## Architecture
 

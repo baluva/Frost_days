@@ -148,6 +148,14 @@ tient sur cette ligne des **0 °C**.
 > Lecture en *chunks* de 500 000 lignes avec filtrage de la plage de dates à la volée, et cache
 > local du fichier décompressé : on télécharge une fois, on relit ensuite instantanément.
 
+**« Comment savez-vous que vos chiffres sont justes ? »**
+> On a validé le pipeline contre un jeu de référence (6 communes avec station attendue et gel
+> jour par jour). Notre définition `TN ≤ 0` reproduit la référence **6/6**, et station + comptage
+> sont **identiques** quand la station la plus proche est dans le département (Marseille 52, Paris 97,
+> Digne 559 — exacts). Les 3 écarts viennent de communes **frontalières** dont la station la plus
+> proche est dans le département voisin : on charge un département à la fois, c'est une limite de
+> périmètre qu'on assume et qu'on sait corriger (recherche sur un référentiel national de stations).
+
 **« La corrélation altitude–gel, c'est de la causalité ? »**
 > Non, c'est une corrélation à l'échelle des stations du département. L'altitude est un facteur
 > physique connu (gradient thermique), mais d'autres jouent : continentalité, proximité de la mer,

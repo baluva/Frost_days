@@ -17,7 +17,15 @@ Deux fichiers utilisés :
 - **Référentiel communes** (CSV ~21 Mo, version 17/06/2026) → pour récupérer lat/lon de la commune.
 - **Fichier départemental** `Q_<dept>_previous-1950-2024_RR-T-Vent.csv.gz` (~10-30 Mo gzippé chacun) → données quotidiennes par station météo.
 
-Colonnes gardées dans le CSV départemental (parmi ~40) : `NUM_POSTE`, `NOM_USUEL`, `LAT`, `LON`, `AAAAMMJJ`, **`TN`**. Le reste (pluie, vent…) ne sert pas pour le gel.
+Colonnes gardées (7) dans le CSV départemental, qui en compte en réalité **60** :
+`NUM_POSTE`, `NOM_USUEL`, `LAT`, `LON`, `ALTI`, `AAAAMMJJ`, **`TN`**.
+
+Ce choix n'est pas arbitraire : il vient d'un **audit des 60 colonnes** (cf. notebook
+`02_exploration.ipynb`, § 1 bis). On y montre que la moitié du fichier sont des **flags qualité**
+`Q…` (métadonnée), que **6 colonnes sont 100 % vides** (`FF2M`, `FXI2`, `DXI2`, `HXI2` + flags),
+que le bloc **vent** est manquant à 93–97 %, et que les autres variables de gel (`TNSOL` 96 %,
+`TN50` 99 %, `DG` 88 % de manquants) sont trop lacunaires pour être exploitées. `TN` (mini sous
+abri) reste la seule variable de gel à la fois pertinente **et** suffisamment remplie.
 
 ## 3. Pipeline (en 5 étapes)
 
@@ -77,6 +85,16 @@ Test end-to-end sur **Dijon, 2014-01-01 → 2023-12-31** :
 - **439 jours de gel** sur 10 ans → **48,8 jours/an** en moyenne
 - Jour le plus gélif : **24 janvier** (7/8 années = 87,5 %)
 - Gel concentré **novembre → mars**, pratiquement zéro de mai à octobre
+
+## 6 bis. Validation contre un jeu de référence
+
+Le pipeline a été confronté au jeu `validation_3` (6 communes + stations attendues + `frost_day`
+jour par jour) — détail dans [`VALIDATION.md`](VALIDATION.md) :
+- **définition du gel** `TN ≤ 0` : reproduit la référence **6 communes / 6** ;
+- **pipeline complet** : station **et** comptage **identiques** dès que la station la plus proche
+  est dans le département (Digne 559, Marseille 52, Paris 97 — Δ = 0) ;
+- 3 communes frontalières diffèrent car leur station la plus proche est dans un **département
+  voisin** — limite de périmètre assumée (un seul département chargé à la fois), pas une erreur.
 
 ## 7. Pour relancer
 
