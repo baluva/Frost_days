@@ -1,0 +1,10 @@
+pandas>=2.0
+numpy>=1.24
+requests>=2.31
+streamlit>=1.30
+plotly>=5.18
+matplotlib>=3.7
+seaborn>=0.13
+jupyter>=1.0
+ipykernel>=6.25
+tqdm>=4.66
