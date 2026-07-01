@@ -7,6 +7,10 @@ Calcul du nombre de jours de gel pour une commune française sur une plage de da
 
 Un **jour de gel** = un jour où la température minimale (`TN`) sous abri a été ≤ 0 °C.
 
+## Aperçu
+
+![Aperçu du dashboard Frost Days](assets/apercu_app.png)
+
 ## Documentation
 
 Toute la doc est dans [`docs/`](docs/) :
